@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="api-base-url" content="http://localhost:8000/api/v1" />
+  <title>Mangaweb</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <a class="brand" href="index.html">Mangaweb</a>
+    <div class="auth"><span data-auth-status></span><a class="button" href="login.html" data-login-btn>Login</a><button data-logout hidden>Logout</button></div>
+  </header>
+  <main>
+    <h1>Katalog Manga</h1>
+    <form class="search" data-search-form><input name="search" placeholder="Cari judul manga..." /><button>Cari</button></form>
+    <p data-status aria-live="polite">Memuat katalog...</p>
+    <section class="grid" data-manga-list></section>
+    <button data-load-more hidden>Muat lebih banyak</button>
+  </main>
+  <script type="module">
+    import { api } from "./js/api.js";
+    import { bindLogout, updateAuthNavigation } from "./js/auth.js";
+    const list = document.querySelector("[data-manga-list]");
+    const status = document.querySelector("[data-status]");
+    const more = document.querySelector("[data-load-more]");
+    const form = document.querySelector("[data-search-form]");
+    let skip = 0, search = "", total = 0;
+    const limit = 20;
+    function card(manga) {
+      const item = document.createElement("a"); item.className = "card"; item.href = `reader.html?slug=${encodeURIComponent(manga.slug)}`;
+      if (manga.cover_image_url) {
+        const image = document.createElement("img");
+        image.src = manga.cover_image_url;
+        image.alt = `Cover ${manga.title}`;
+        image.loading = "lazy";
+        item.append(image);
+      } else {
+        const placeholder = document.createElement("div");
+        placeholder.className = "cover-placeholder";
+        item.append(placeholder);
+      }
+      const heading = document.createElement("h2"); heading.textContent = manga.title;
+      const creator = document.createElement("p"); creator.textContent = manga.creator || "Creator tidak tersedia";
+      item.append(heading, creator); return item;
+    }
+    async function load(reset = false) {
+      if (reset) { skip = 0; list.replaceChildren(); }
+      status.textContent = "Memuat katalog...";
+      try {
+        const result = await api.getMangas({ skip, limit, search }); total = result.total;
+        list.append(...result.items.map(card)); skip += result.items.length;
+        status.textContent = result.items.length || skip ? `${skip} dari ${total} manga` : "Manga tidak ditemukan.";
+        more.hidden = skip >= total;
+      } catch (error) { status.textContent = error.message; more.hidden = true; }
+    }
+    form.addEventListener("submit", (event) => { event.preventDefault(); search = new FormData(form).get("search"); load(true); });
+    more.addEventListener("click", () => load()); updateAuthNavigation(); bindLogout(); load();
+  </script>
+</body>
+</html>

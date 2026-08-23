@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="id">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="api-base-url" content="http://localhost:8000/api/v1" /><title>Login — Mangaweb</title><link rel="stylesheet" href="css/styles.css" /></head>
+<body>
+  <main class="login"><a href="index.html">← Kembali ke katalog</a><h1>Login</h1>
+    <form data-login-form><label>Email<input type="email" name="email" required autocomplete="email" /></label><label>Password<input type="password" name="password" required autocomplete="current-password" /></label><button type="submit">Masuk</button><p data-form-message aria-live="polite"></p></form>
+  </main>
+  <script type="module">import { bindLoginForm } from "./js/auth.js"; bindLoginForm();</script>
+</body>
+</html>
