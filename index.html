@@ -97,6 +97,11 @@
   <script type="module">
     import { api } from "./js/api.js";
     import { bindLogout, updateAuthNavigation } from "./js/auth.js";
+    import { initApi } from "./js/backend_url.js";
+    try {
+    await initApi();
+
+    console.log("Backend ready.");
     const list = document.querySelector("[data-manga-list]");
     const status = document.querySelector("[data-status]");
     const more = document.querySelector("[data-load-more]");
@@ -266,6 +271,9 @@ async function load(reset = false) {
     updateAuthNavigation();
     bindLogout();
     load();
+    } catch (error) {
+    console.error("Failed to initialize backend:", error);
+  }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
   <script>eruda.init();</script>
