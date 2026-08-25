@@ -1,5 +1,37 @@
 <!doctype html>
-<html lang="id">
-<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="api-base-url" content="http://localhost:8000/api/v1" /><title>Reader — Mangaweb</title><link rel="stylesheet" href="css/styles.css" /></head>
-<body><header><a class="brand" href="index.html" data-manga-back>← Daftar chapter</a></header><main class="reader"><h1 data-reader-title>Memuat manga...</h1><p data-reader-status aria-live="polite"></p><section class="pages" data-pages></section></main><script type="module" src="js/reader.js"></script></body>
+<html class="dark" lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reader — Mangaweb</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/tailwind.css" />
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen">
+
+    <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-margin-page h-16 bg-surface/90 backdrop-blur-md border-b border-secondary-container shadow-[0px_0px_20px_0px_rgba(2,2,3,0.8)]">
+    <a class="brand font-label-md text-label-md text-primary hover:text-text-primary transition-colors flex items-center gap-1" href="index.html" data-manga-back>
+        <span class="material-symbols-outlined text-lg" data-icon="arrow_back">arrow_back</span>
+        Daftar chapter
+    </a>
+    <button type="button" data-download-chapter hidden class="flex items-center gap-2 bg-primary-container text-text-primary font-label-md text-label-md px-4 py-2 rounded-full hover:bg-primary hover:text-surface transition-colors">
+        <span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+        Download Chapter
+    </button>
+    </header>
+
+    <main class="reader pt-24 pb-stack-lg px-margin-page max-w-3xl mx-auto">
+    <h1 data-reader-title class="font-headline-md text-headline-md text-text-primary mb-stack-sm text-center">Memuat manga...</h1>
+    <p data-reader-status aria-live="polite" class="font-body-md text-sm text-on-surface-variant text-center mb-stack-lg"></p>
+
+    <section class="pages" data-pages></section>
+    </main>
+
+    <script type="module" src="js/reader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+</body>
 </html>

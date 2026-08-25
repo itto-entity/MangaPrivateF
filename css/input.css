@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* ===== Umum (dipakai di semua halaman) ===== */
+    .glow-hover:hover {
+    box-shadow: 0 0 20px 0px rgba(2, 2, 3, 0.8);
+    transform: scale(1.05);
+}
+    .scroll-snap-x {
+    scroll-snap-type: x mandatory;
+}
+    .snap-start {
+    scroll-snap-align: start;
+}
+
+  /* ===== index.html: card katalog/manga ===== */
+    /* Dibuat dinamis lewat JS (item.className = "card"),
+     sehingga styling-nya murni lewat CSS di sini, bukan utility Tailwind */
+    .card {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 80vw;
+    scroll-snap-align: start;
+    background: #1f1f22;
+    border: 1px solid #062045;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+    @media (min-width: 768px) {
+    .card {
+        flex: auto;
+        scroll-snap-align: none;
+    }
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px 0px rgba(2, 2, 3, 0.8);
+    }
+}
+    .card img,
+    .card .cover-placeholder {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+    background: #062045;
+}
+    .card h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 16px 16px 4px;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+    .card p {
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    color: #c4c6cf;
+    margin: 0 16px 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+  /* ===== login.html ===== */
+    .input-glow:focus {
+    box-shadow: 0 0 12px 0px rgba(177, 199, 245, 0.35);
+}
+
+  /* ===== reader.html: halaman manga dinamis dari js/reader.js ===== */
+    [data-pages] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    }
+[data-pages] img {
+    width: 100%;
+    max-width: 860px;
+    height: auto;
+    display: block;
+    background: #062045;
+    border: 1px solid #062045;
+    border-radius: 0.25rem;
+    }
+}
+
+/* Custom scrollbar (webkit) — di luar @layer supaya tidak ke-purge */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #121316;
+}
+::-webkit-scrollbar-thumb {
+    background: #343538;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #464553;
+}

@@ -1,10 +1,59 @@
 <!doctype html>
-<html lang="id">
-<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="api-base-url" content="http://localhost:8000/api/v1" /><title>Login — Mangaweb</title><link rel="stylesheet" href="css/styles.css" /></head>
-<body>
-  <main class="login"><a href="index.html">← Kembali ke katalog</a><h1>Login</h1>
-    <form data-login-form><label>Email<input type="email" name="email" required autocomplete="email" /></label><label>Password<input type="password" name="password" required autocomplete="current-password" /></label><button type="submit">Masuk</button><p data-form-message aria-live="polite"></p></form>
+<html class="dark" lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Mangaweb</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/tailwind.css" />
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex items-center justify-center px-margin-page py-stack-lg">
+
+  <main class="login w-full max-w-md">
+    <a class="inline-flex items-center gap-1 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors mb-stack-lg" href="index.html">
+      <span class="material-symbols-outlined text-lg" data-icon="arrow_back">arrow_back</span>
+      Kembali ke katalog
+    </a>
+
+    <div class="bg-surface-container border border-primary-container rounded-xl p-stack-lg transition-all duration-300 glow-hover">
+      <h1 class="font-headline-lg text-headline-lg text-text-primary mb-stack-md">Login</h1>
+
+      <form class="flex flex-col gap-stack-md" data-login-form>
+        <label class="flex flex-col gap-1">
+          <span class="font-label-md text-label-md text-on-surface-variant">Email</span>
+          <input
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            class="input-glow w-full bg-surface border border-secondary-container rounded-lg px-4 py-3 text-on-surface font-body-md text-sm focus:outline-none focus:border-primary transition-all"
+          />
+        </label>
+
+        <label class="flex flex-col gap-1">
+          <span class="font-label-md text-label-md text-on-surface-variant">Password</span>
+          <input
+            type="password"
+            name="password"
+            required
+            autocomplete="current-password"
+            class="input-glow w-full bg-surface border border-secondary-container rounded-lg px-4 py-3 text-on-surface font-body-md text-sm focus:outline-none focus:border-primary transition-all"
+          />
+        </label>
+
+        <button
+          type="submit"
+          class="mt-stack-sm bg-primary-container text-text-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-primary hover:text-surface transition-colors"
+        >Masuk</button>
+
+        <p data-form-message aria-live="polite" class="font-body-md text-sm text-on-surface-variant min-h-[1.5em]"></p>
+      </form>
+    </div>
   </main>
+
   <script type="module">import { bindLoginForm } from "./js/auth.js"; bindLoginForm();</script>
 </body>
 </html>

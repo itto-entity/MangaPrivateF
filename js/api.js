@@ -1,5 +1,34 @@
-const configuredApiUrl = document.querySelector('meta[name="api-base-url"]')?.content;
-const API_BASE_URL = (configuredApiUrl || "/api/v1").replace(/\/+$/, "");
+import "./sw-register.js";
+
+function getApiBaseUrl() {
+  const metaUrl = document.querySelector('meta[name="api-base-url"]')?.content?.trim();
+  if (metaUrl) {
+    if (metaUrl.startsWith("http://") || metaUrl.startsWith("https://")) {
+      try {
+        const parsed = new URL(metaUrl);
+        if (
+          (parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1") &&
+          window.location.hostname &&
+          window.location.hostname !== "localhost" &&
+          window.location.hostname !== "127.0.0.1"
+        ) {
+          parsed.hostname = window.location.hostname;
+          return (parsed.origin + parsed.pathname).replace(/\/+$/, "");
+        }
+        return metaUrl.replace(/\/+$/, "");
+      } catch {
+        return metaUrl.replace(/\/+$/, "");
+      }
+    }
+    return metaUrl.replace(/\/+$/, "");
+  }
+
+  const host = window.location.hostname || "localhost";
+  const protocol = window.location.protocol === "https:" ? "https:" : "http:";
+  return `${protocol}//${host}:8000/api/v1`;
+}
+
+const API_BASE_URL = getApiBaseUrl();
 
 export class ApiError extends Error {
   constructor(message, status, data) {

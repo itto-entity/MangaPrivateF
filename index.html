@@ -1,24 +1,99 @@
-<!doctype html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="api-base-url" content="http://localhost:8000/api/v1" />
-  <title>Mangaweb</title>
-  <link rel="stylesheet" href="css/styles.css" />
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MANGA KAI - Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Sora:wght@400;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/tailwind.css" />
 </head>
-<body>
-  <header>
-    <a class="brand" href="index.html">Mangaweb</a>
-    <div class="auth"><span data-auth-status></span><a class="button" href="login.html" data-login-btn>Login</a><button data-logout hidden>Logout</button></div>
-  </header>
-  <main>
-    <h1>Katalog Manga</h1>
-    <form class="search" data-search-form><input name="search" placeholder="Cari judul manga..." /><button>Cari</button></form>
-    <p data-status aria-live="polite">Memuat katalog...</p>
-    <section class="grid" data-manga-list></section>
-    <button data-load-more hidden>Muat lebih banyak</button>
-  </main>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-page h-16 bg-surface/90 backdrop-blur-md border-b border-secondary-container dark:border-secondary-container shadow-[0px_0px_20px_0px_rgba(2,2,3,0.8)]">
+<div class="flex items-center gap-desktop-gutter">
+<span class="font-display-lg text-headline-md tracking-widest text-primary dark:text-primary">MANGA KAI</span>
+<div class="hidden md:flex gap-desktop-gutter">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Browse</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-label-md text-label-md hover:scale-105 transition-transform duration-200" href="#">Library</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-label-md text-label-md hover:scale-105 transition-transform duration-200" href="#">Latest</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-label-md text-label-md hover:scale-105 transition-transform duration-200" href="#">Community</a>
+</div>
+</div>
+<div class="flex items-center gap-desktop-gutter">
+<form class="relative hidden md:block" data-search-form>
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-surface-container border border-secondary-container rounded-full pl-10 pr-4 py-1 text-on-surface focus:outline-none focus:border-primary font-body-md text-sm w-48 transition-all focus:w-64" name="search" placeholder="Cari judul manga..." type="text"/>
+</form>
+<span class="font-label-md text-label-md text-on-surface-variant hidden md:inline" data-auth-status></span>
+<a class="hover:scale-105 transition-transform duration-200 text-primary dark:text-primary" data-login-btn href="login.html">
+<span class="material-symbols-outlined text-2xl" data-icon="person">person</span>
+</a>
+<button class="hover:scale-105 transition-transform duration-200 text-primary dark:text-primary" data-logout hidden>
+<span class="material-symbols-outlined text-2xl" data-icon="logout">logout</span>
+</button>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Mobile, Visible on LG as per JSON, but Prompt asks for top nav. Including for fidelity if needed, but styling per prompt implies focus on canvas. Will hide per standard responsive practice if top nav covers needs, but JSON provides it.) -->
+<!-- Assuming TopNav is sufficient for Home as per "Destination" rule and standard layouts. -->
+<!-- Main Content -->
+<main class="pt-24 pb-32 md:pb-24 px-margin-page">
+<!-- Featured Hero -->
+<section class="mb-stack-lg">
+<div class="relative w-full h-[60vh] md:h-[70vh] rounded-xl overflow-hidden border border-primary-container shadow-[0px_0px_30px_0px_rgba(2,2,3,0.8)] group cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105" data-alt="A highly detailed illustration of an epic sci-fi cyberpunk manga cover. The scene features a lone warrior standing on a neon-lit rooftop overlooking a sprawling, dark futuristic city raining heavily. Dramatic lighting with deep navy blues, bright neon cyan and crimson red accents. Cinematic composition, gritty texture, masterpiece quality." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD6QK_YZZEE0QyJDL9t91gQdcVanMU-_Bo9RuVwJc_cWHQ6mGgbscLeZQbVq5EcJ0mnq8lyIE2b7lvKGdbRDG387O9mc41xfqIEe2j2NQIXvpis1HSgWwA4CeHAGntUOStroak99TILVx_1ZIcvUFjVpdfbQjiCz518xtmlhqvpFnPBsAfH-YM0XHyVHGEJkL_pc3wtisEOGyZRgkX1rnj4JJq0is0RA4H-jTkonsh-tclcBCsuD1cVRg')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/60 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-stack-lg w-full md:w-2/3">
+<div class="flex gap-2 mb-stack-sm">
+<span class="bg-primary-container text-primary font-label-md text-label-md px-3 py-1 rounded-full border border-secondary-container">Action</span>
+<span class="bg-primary-container text-primary font-label-md text-label-md px-3 py-1 rounded-full border border-secondary-container">Sci-Fi</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary mb-stack-sm">CYBER BLADE ZERO</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-md line-clamp-3">In a world where augmentations dictate your worth, a defective swordsman seeks the truth behind the city's neon facade. A gripping tale of survival, betrayal, and neon-lit steel.</p>
+<div class="flex gap-4">
+<button class="bg-primary-container text-text-primary font-label-md text-label-md px-8 py-3 rounded-lg hover:bg-primary hover:text-surface transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span> Read Chapter 1
+                        </button>
+<button class="border border-primary-container text-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-primary-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="bookmark_add">bookmark_add</span> Save
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Placeholder untuk konten tambahan (diisi nanti) -->
+<img src="" alt=""/>
+<!-- Latest Updates -->
+<section>
+<div class="flex justify-between items-end mb-stack-md border-b border-secondary-container pb-2">
+<h2 class="font-headline-md text-headline-md text-text-primary">Latest Updates</h2>
+</div>
+<p aria-live="polite" class="font-body-md text-sm text-on-surface-variant mb-stack-sm" data-status>Memuat katalog...</p>
+<!-- Grid/Slider Container: diisi otomatis oleh JS (card katalog dari data-manga-list) -->
+<div class="flex md:grid md:grid-cols-2 gap-mobile-gutter md:gap-desktop-gutter overflow-x-auto scroll-snap-x pb-stack-md pt-stack-sm -mx-margin-page px-margin-page md:mx-0 md:px-0 md:overflow-visible" data-manga-list></div>
+<button class="block mx-auto mt-stack-lg bg-primary-container text-text-primary font-label-md text-label-md px-8 py-3 rounded-lg hover:bg-primary hover:text-surface transition-colors" data-load-more hidden>Muat lebih banyak</button>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container border-t border-secondary-container shadow-[0px_-4px_20px_0px_rgba(2,2,3,0.6)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-xl px-4 py-1 scale-90 duration-150 transition-all" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="explore">explore</span>
+<span class="font-label-md text-[10px] mt-1">Browse</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="menu_book">menu_book</span>
+<span class="font-label-md text-[10px] mt-1">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="person">person</span>
+<span class="font-label-md text-[10px] mt-1">Account</span>
+</a>
+</nav>
   <script type="module">
     import { api } from "./js/api.js";
     import { bindLogout, updateAuthNavigation } from "./js/auth.js";
@@ -45,18 +120,153 @@
       const creator = document.createElement("p"); creator.textContent = manga.creator || "Creator tidak tersedia";
       item.append(heading, creator); return item;
     }
-    async function load(reset = false) {
-      if (reset) { skip = 0; list.replaceChildren(); }
-      status.textContent = "Memuat katalog...";
-      try {
-        const result = await api.getMangas({ skip, limit, search }); total = result.total;
-        list.append(...result.items.map(card)); skip += result.items.length;
-        status.textContent = result.items.length || skip ? `${skip} dari ${total} manga` : "Manga tidak ditemukan.";
-        more.hidden = skip >= total;
-      } catch (error) { status.textContent = error.message; more.hidden = true; }
+    async function loadFallbackCatalog() {
+  const response = await fetch(
+    "./fallback-catalog.json",
+    {
+      cache: "no-cache",
     }
-    form.addEventListener("submit", (event) => { event.preventDefault(); search = new FormData(form).get("search"); load(true); });
-    more.addEventListener("click", () => load()); updateAuthNavigation(); bindLogout(); load();
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "Fallback catalog tidak tersedia."
+    );
+  }
+
+  return response.json();
+}
+
+
+async function load(reset = false) {
+  if (reset) {
+    skip = 0;
+    list.replaceChildren();
+  }
+
+  status.textContent = "Memuat katalog...";
+
+  try {
+    const result = await api.getMangas({
+      skip,
+      limit,
+      search,
+    });
+
+    total = result.total;
+
+    list.append(
+      ...result.items.map(card)
+    );
+
+    skip += result.items.length;
+
+    status.textContent =
+      result.items.length || skip
+        ? `${skip} dari ${total} manga`
+        : "Manga tidak ditemukan.";
+
+    more.hidden =
+      skip >= total;
+
+  } catch (error) {
+
+    /*
+     * API gagal.
+     * Gunakan static fallback catalog.
+     *
+     * Fallback hanya dipakai untuk initial load,
+     * bukan untuk pagination API.
+     */
+
+    try {
+
+      const fallback =
+        await loadFallbackCatalog();
+
+      let items =
+        fallback.items || [];
+
+      /*
+       * Search dilakukan di browser
+       * ketika sedang menggunakan fallback.
+       */
+
+      if (search.trim()) {
+
+        const query =
+          search.trim().toLowerCase();
+
+        items =
+          items.filter((manga) =>
+            manga.title
+              ?.toLowerCase()
+              .includes(query)
+            ||
+            manga.slug
+              ?.toLowerCase()
+              .includes(query)
+        );
+      }
+
+      total =
+        items.length;
+
+      /*
+       * Terapkan pagination lokal.
+       */
+
+      const fallbackItems =
+        items.slice(
+          skip,
+          skip + limit
+        );
+
+      list.append(
+        ...fallbackItems.map(card)
+      );
+
+      skip +=
+        fallbackItems.length;
+
+      status.textContent =
+        fallbackItems.length
+          ? `${skip} dari ${total} manga (offline)`
+          : "Manga tidak ditemukan.";
+
+      /*
+       * Tidak ada lagi data fallback.
+       */
+
+      more.hidden =
+        skip >= total;
+
+    } catch (fallbackError) {
+
+      console.error(
+        "Fallback catalog gagal:",
+        fallbackError
+      );
+
+      status.textContent =
+        "Katalog tidak dapat dimuat.";
+
+      more.hidden =
+        true;
+    }
+  }
+}
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      search = new FormData(form).get("search") || "";
+      load(true);
+    });
+    more.addEventListener("click", () => load());
+    updateAuthNavigation();
+    bindLogout();
+    load();
   </script>
-</body>
-</html>
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>eruda.init();</script>
+</body></html>
