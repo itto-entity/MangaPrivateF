@@ -61,5 +61,5 @@ export function getApiUrl() {
 
 export async function apiFetch(path, options = {}) {
     await initApi();
-    return fetch(`${getApiUrl()}${path}`, options);
+    return fetch(`${getApiUrl()}/api/v1${path}`, options);
 }
